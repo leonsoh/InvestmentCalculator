@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from './user-input/user-input.component';
 import { InvestmentResultsComponent } from "./investment-results/investment-results.component";
+import { Services } from './services/services';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { InvestmentResultsComponent } from "./investment-results/investment-resu
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  constructor(private service: Services) {}
 
   resultsData?: {
     year: number,
@@ -49,5 +51,8 @@ export class AppComponent {
     }
 
     this.resultsData = annualData ?? [{}];
+    this.service.getUserPosts().subscribe(data => {
+      console.log(data);
+    })
   }
 }
