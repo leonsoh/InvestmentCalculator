@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from './user-input/user-input.component';
 import { InvestmentResultsComponent } from "./investment-results/investment-results.component";
@@ -12,8 +12,8 @@ import { Services } from './services/services';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private service: Services) {}
-
+  constructor(private service: Services, private router: Router) {}
+  
   resultsData?: {
     year: number,
     interest: number,
@@ -54,5 +54,13 @@ export class AppComponent {
     this.service.getUserPosts().subscribe(data => {
       console.log(data);
     })
+  }
+
+  toggleNavigation() {
+    if (this.router.url === '/') {
+      this.router.navigate(['app-settings']);
+    } else {
+      this.router.navigate(['/']); 
+    }
   }
 }
